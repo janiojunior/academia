@@ -3,7 +3,8 @@ package br.unitins.tp1.resource;
 import java.util.List;
 
 import br.unitins.tp1.model.Estado;
-import jakarta.transaction.Transactional;
+import br.unitins.tp1.service.EstadoService;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -15,48 +16,45 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/estados")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class EstadoResource {
 
+    @Inject
+    EstadoService service;
+
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Estado> listar() {
-        return Estado.listAll();
+        return service.findAll();
     }
 
     @GET
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Estado buscarPorId(@PathParam("id") Long id) {
-        return Estado.findById(id);
+        return service.findById(id);
+    }
+
+    @GET
+    @Path("/nome/{nome}")
+    public List<Estado> buscarPorNome(@PathParam("nome") String nome) {
+        return service.findByNome(nome);
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
     public Estado inserir(Estado estado) {
-        estado.persist();
-        return estado;
+        return service.create(estado);
     } 
 
     @PUT
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
     public void atualizar(@PathParam("id") Long id, Estado estado) {
-        Estado estadoBanco = Estado.findById(id);
-        if (estadoBanco == null) {
-            throw new RuntimeException("Estado não encontrado");
-        }
-        estadoBanco.nome = estado.nome;
-        estadoBanco.sigla = estado.sigla;
+       service.update(id, estado);
     } 
 
     @DELETE
     @Path("/{id}")
-    @Transactional
     public void excluir(@PathParam("id") Long id) {
-        Estado.deleteById(id);
+        service.delete(id);
     }
 
 
