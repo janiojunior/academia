@@ -42,6 +42,12 @@ public class EstadoResource {
 
     @POST
     public Estado inserir(Estado estado) {
+        System.out.println("/n/n");
+        System.out.println(estado.getNome());
+        System.out.println(estado.getRegiao().getId());
+        System.out.println(estado.getRegiao().getNome());
+        System.out.println("/n/n");
+
         return service.create(estado);
     } 
 

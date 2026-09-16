@@ -5,7 +5,7 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
-insert into estado (nome, sigla) values('Tocantins', 'TO');
-insert into estado (nome, sigla) values('Goias', 'GO');
-insert into estado (nome, sigla) values('Rio de Janeiro', 'RJ');
+insert into estado (nome, sigla, idregiao) values('Tocantins', 'TO', 3);
+insert into estado (nome, sigla, idregiao) values('Goias', 'GO', 1);
+insert into estado (nome, sigla, idregiao) values('Rio de Janeiro', 'RJ', 4);
 insert into estado (nome, sigla) values('Sao Paulo', 'SP');
