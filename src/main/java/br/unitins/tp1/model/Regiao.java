@@ -1,5 +1,9 @@
 package br.unitins.tp1.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+@JsonFormat (shape = Shape.OBJECT)
 public enum Regiao {
     CENTRO_OESTE(1, "Centro-Oeste"),
     NORDESTE(2, "Nordeste"),

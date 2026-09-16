@@ -24,12 +24,14 @@ public class EstadoServiceImpl implements EstadoService {
     @Override
     @Transactional
     public void update(Long id, Estado estado) {
-        Estado estadoBanco = repository.findById(id);
-        if (estadoBanco == null) {
+        Estado novoEstado = repository.findById(id);
+        if (novoEstado == null) {
             throw new RuntimeException("Estado não encontrado");
         }
-        estadoBanco.setNome(estado.getNome());
-        estadoBanco.setSigla(estado.getSigla());
+        novoEstado.setNome(estado.getNome());
+        novoEstado.setSigla(estado.getSigla());
+        novoEstado.setRegiao(estado.getRegiao());
+        repository.persist(novoEstado);
     }
 
     @Override

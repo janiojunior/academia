@@ -1,9 +1,13 @@
 package br.unitins.tp1.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 
 @MappedSuperclass
 public class DefaultEntity {
@@ -11,6 +15,18 @@ public class DefaultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataAtualizacao;
+
+    @PrePersist 
+    public void gerarDataCriacao() {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    @PreUpdate 
+    public void gerarDataAtualizacao() {
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -44,6 +60,14 @@ public class DefaultEntity {
             return false;
         return true;
     } 
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
     
  
 }

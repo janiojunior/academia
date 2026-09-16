@@ -2,7 +2,10 @@ package br.unitins.tp1.resource;
 
 import java.util.List;
 
+import br.unitins.tp1.dto.EstadoDTO;
+import br.unitins.tp1.dto.EstadoResponseDTO;
 import br.unitins.tp1.model.Estado;
+import br.unitins.tp1.model.Regiao;
 import br.unitins.tp1.service.EstadoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -24,44 +27,53 @@ public class EstadoResource {
     EstadoService service;
 
     @GET
-    public List<Estado> listar() {
-        return service.findAll();
+    public List<EstadoResponseDTO> listar() {
+        return service.findAll().stream()
+                .map(EstadoResponseDTO::fromEntity)
+                .toList();
+
+        // mesmo codigo acima
+        // return service.findAll().stream().map(e ->
+        // EstadoResponseDTO.fromEntity(e)).toList();
     }
 
     @GET
     @Path("/{id}")
-    public Estado buscarPorId(@PathParam("id") Long id) {
-        return service.findById(id);
+    public EstadoResponseDTO buscarPorId(@PathParam("id") Long id) {
+        return EstadoResponseDTO.fromEntity(service.findById(id));
     }
 
     @GET
     @Path("/nome/{nome}")
-    public List<Estado> buscarPorNome(@PathParam("nome") String nome) {
-        return service.findByNome(nome);
+    public List<EstadoResponseDTO> buscarPorNome(@PathParam("nome") String nome) {
+        return service.findByNome(nome).stream().map(EstadoResponseDTO::fromEntity).toList();
     }
 
     @POST
-    public Estado inserir(Estado estado) {
-        System.out.println("/n/n");
-        System.out.println(estado.getNome());
-        System.out.println(estado.getRegiao().getId());
-        System.out.println(estado.getRegiao().getNome());
-        System.out.println("/n/n");
-
-        return service.create(estado);
-    } 
+    public EstadoResponseDTO inserir(EstadoDTO dto) {
+        Estado estado = new Estado();
+        estado.setNome(dto.nome());
+        estado.setSigla(dto.sigla());
+        estado.setRegiao(Regiao.fromId(dto.idRegiao()));
+        return EstadoResponseDTO.fromEntity(service.create(estado));
+    }
 
     @PUT
     @Path("/{id}")
-    public void atualizar(@PathParam("id") Long id, Estado estado) {
-       service.update(id, estado);
-    } 
+    public void atualizar(@PathParam("id") Long id, EstadoDTO dto) {
+        Estado estado = new Estado();
+        estado.setNome(dto.nome());
+        estado.setSigla(dto.sigla());
+        estado.setRegiao(Regiao.fromId(dto.idRegiao()));
+
+        service.update(id, estado);
+
+    }
 
     @DELETE
     @Path("/{id}")
     public void excluir(@PathParam("id") Long id) {
         service.delete(id);
     }
-
 
 }
