@@ -3,6 +3,8 @@ package br.unitins.tp1.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
+import jakarta.ws.rs.BadRequestException;
+
 @JsonFormat (shape = Shape.OBJECT)
 public enum Regiao {
     CENTRO_OESTE(1, "Centro-Oeste"),
@@ -33,6 +35,6 @@ public enum Regiao {
                 return regiao;
             }
         }
-        throw new IllegalArgumentException("Região inválida: " + id);
+        throw new BadRequestException("Regiao invalida: " + id);
     }
 }

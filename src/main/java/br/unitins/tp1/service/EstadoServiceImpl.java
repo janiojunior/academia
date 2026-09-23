@@ -7,6 +7,7 @@ import br.unitins.tp1.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class EstadoServiceImpl implements EstadoService {
@@ -26,23 +27,28 @@ public class EstadoServiceImpl implements EstadoService {
     public void update(Long id, Estado estado) {
         Estado novoEstado = repository.findById(id);
         if (novoEstado == null) {
-            throw new RuntimeException("Estado não encontrado");
+            throw new NotFoundException("Estado nao encontrado.");
         }
         novoEstado.setNome(estado.getNome());
         novoEstado.setSigla(estado.getSigla());
         novoEstado.setRegiao(estado.getRegiao());
-        repository.persist(novoEstado);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        repository.deleteById(id);
+        if (!repository.deleteById(id)) {
+            throw new NotFoundException("Estado nao encontrado.");
+        }
     }
 
     @Override
     public Estado findById(Long id) {
-       return repository.findById(id);
+       Estado estado = repository.findById(id);
+       if (estado == null) {
+            throw new NotFoundException("Estado nao encontrado.");
+       }
+       return estado;
     }
 
     @Override
