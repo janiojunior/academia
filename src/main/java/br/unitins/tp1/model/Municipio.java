@@ -2,13 +2,14 @@ package br.unitins.tp1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Municipio extends DefaultEntity {
 
     private String nome;
-    @Column(name = "id_estado", nullable = false)
+    @JoinColumn (name = "id_estado", nullable = false)
     @ManyToOne
     private Estado estado;
 
