@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 public class Estado extends DefaultEntity {
 
     private String nome;
+    @Column(unique = true)
     private String sigla;
     @Column(name = "idRegiao")
     private Regiao regiao;

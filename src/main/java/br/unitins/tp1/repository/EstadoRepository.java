@@ -12,4 +12,12 @@ public class EstadoRepository implements PanacheRepository<Estado> {
         // return find("SELECT e FROM Estado e WHERE e.nome LIKE ?", nome).list();
         return find("upper(nome) LIKE upper(?1)", "%" + nome + "%").list();
     }
+
+    public boolean existsBySigla(String sigla) {
+        return count("upper(sigla) = upper(?1)", sigla) > 0;
+    }
+
+    public boolean existsBySiglaAndIdNot(String sigla, Long id) {
+        return count("upper(sigla) = upper(?1) and id <> ?2", sigla, id) > 0;
+    }
 }
