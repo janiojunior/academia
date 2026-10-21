@@ -10,6 +10,17 @@ insert into estado (nome, sigla, idregiao) values('Goias', 'GO', 1);
 insert into estado (nome, sigla, idregiao) values('Rio de Janeiro', 'RJ', 4);
 insert into estado (nome, sigla) values('Sao Paulo', 'SP');
 
+insert into municipio (nome, id_estado) values ('Palmas', 1);
+insert into municipio (nome, id_estado) values ('Araguaina', 1);
+insert into municipio (nome, id_estado) values ('Gurupi', 1);
+insert into municipio (nome, id_estado) values ('Porto Nacional', 1);
+insert into municipio (nome, id_estado) values ('Goiania', 2);
+insert into municipio (nome, id_estado) values ('Anapolis', 2);
+insert into municipio (nome, id_estado) values ('Rio Verde', 2);
+insert into municipio (nome, id_estado) values ('Niteroi', 3);
+insert into municipio (nome, id_estado) values ('Petropolis', 3);
+insert into municipio (nome, id_estado) values ('Cabo Frio', 3);
+
 insert into pessoa (nome, cpf, email) values ('Ana Clara Souza', '12345678901', 'ana.clara@email.com');
 insert into pessoa (nome, cpf, email) values ('Bruno Martins Lima', '12345678902', 'bruno.martins@email.com');
 insert into pessoa (nome, cpf, email) values ('Carla Fernanda Alves', '12345678903', 'carla.alves@email.com');
