@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Version;
 
 @MappedSuperclass
 public class DefaultEntity {
@@ -17,6 +18,9 @@ public class DefaultEntity {
     private Long id;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
+
+    // @Version 
+    // private long version;
 
     @PrePersist 
     public void gerarDataCriacao() {

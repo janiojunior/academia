@@ -1,7 +1,7 @@
 package br.unitins.tp1.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
@@ -9,8 +9,9 @@ import jakarta.persistence.ManyToOne;
 public class Municipio extends DefaultEntity {
 
     private String nome;
+    
     @JoinColumn (name = "id_estado", nullable = false)
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Estado estado;
 
     public String getNome() {
